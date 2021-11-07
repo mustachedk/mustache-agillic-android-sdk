@@ -1,23 +1,22 @@
 # Agillic SDK for Android
 
-[![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/#User/Repo)
+[![](https://jitpack.io/v/mustachedk/mustache-agillic-android-sdk.svg)](https://jitpack.io/#mustachedk/mustache-agillic-android-sdk)
 
-Step 1. Add the JitPack repository to your build file
-Add it in your root build.gradle at the end of repositories:
-
+###### Add this to your root build.gradle
+```bash
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+  repositories {
+    maven { url 'https://jitpack.io' }
+  }
+}
+```
 
-Step 2. Add the dependency
+###### Add this to your root build.gradle
+```bash
 dependencies {
-    implementation 'com.github.mustachedk:mustache-agillic-android-sdk:Tag'
-    }
-
+  implementation 'com.github.mustachedk:mustache-agillic-android-sdk:1.0'
+}
+```
 
 The Agillic SDK enables you to utilize the Agillic platform from within your Android App.
 The SDK currently includes the following functionality:
