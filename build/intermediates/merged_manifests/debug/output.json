@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.agillic.app.sdk",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 1,
+        "versionName": "1.0",
+        "outputFile": "agillic-android-sdk-unspecified.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/debug/AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.agillic.app.sdk",
+        "split": ""
+      }
+    }
+  ]
+}

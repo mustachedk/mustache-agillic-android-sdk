@@ -1,0 +1,2 @@
+com/agillic/app/sdk/BuildConfig.java
+ com.agillic.app.sdk.BuildConfig
