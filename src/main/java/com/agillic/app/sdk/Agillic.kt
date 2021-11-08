@@ -7,6 +7,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
+import com.agillic.app.sdk.events.AgillicAppViewEvent
 import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
 import com.snowplowanalytics.snowplow.tracker.Emitter
 import com.snowplowanalytics.snowplow.tracker.Emitter.EmitterBuilder
@@ -31,19 +32,16 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
-class AgillicSDK private constructor() {
+object Agillic {
+    private var agillicTracker: AgillicTrackerImpl? = null
     private var url: String
     private var requestSecurity = RequestSecurity.HTTPS
     private var collectorEndpoint = "snowplowtrack-eu1.agillic.net"
     private val service: ExecutorService? = null
     private var auth: BasicAuth? = null
-    private var solutionId: String? = null
+    private val apiUrlFormat = "https://api%s-eu1.agillic.net"
 
-    companion object {
-        private const val apiUrlFormat = "https://api%s-eu1.agillic.net"
-        val instance: AgillicSDK
-            get() = AgillicSDK()
-    }
+    private var solutionId: String? = null
 
     init {
         url = String.format(apiUrlFormat, "")
@@ -76,20 +74,24 @@ class AgillicSDK private constructor() {
         }
     }
 
-    fun configure(key: String, secret: String, solutionId: String) {
+    fun configure(apiKey: String, apiSecret: String, solutionId: String) {
         this.solutionId = solutionId
-        auth = getAuth(key, secret)
+        auth = getAuth(apiKey, apiSecret)
     }
 
     private fun shutdown() {
         service?.shutdownNow()
     }
 
+    fun track(event:AgillicAppViewEvent) {
+        agillicTracker?.track(event)
+    }
+
     fun register(
         recipientId: String,
         activity: Activity,
         pushNotificationToken: String? = null
-    ): AgillicTracker {
+    ) {
         //service = Executors.newSingleThreadExecutor();
         // service.shutdown();
         // the application id to attach to events
@@ -116,14 +118,14 @@ class AgillicSDK private constructor() {
             "NA"
         }
         RegisterTask(tracker, activity.packageName, clientAppVersion, recipientId, auth, pushNotificationToken, deviceInfo, displayMetrics).execute(url)
-        return AgillicTrackerImpl(tracker)
+        agillicTracker = AgillicTrackerImpl(tracker)
     }
 
     private fun getAuth(key: String, secret: String): BasicAuth {
         return BasicAuth(key, secret)
     }
 
-    inner class BasicAuth(key: String, secret: String) {
+    class BasicAuth(key: String, secret: String) {
         private var basicAuth: String = "Basic " + if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Base64.getEncoder().encodeToString("$key:$secret".toByteArray())
         } else {
@@ -135,7 +137,7 @@ class AgillicSDK private constructor() {
         }
     }
 
-    internal inner class RegisterTask(
+    internal class RegisterTask(
         var tracker: Tracker,
         var clientAppId: String?,
         var clientAppVersion: String?,
@@ -229,7 +231,7 @@ class AgillicSDK private constructor() {
         return string
     }
 
-    protected fun createHttpClient(): OkHttpClient { // use OkHttpClient to send events
+    private fun createHttpClient(): OkHttpClient { // use OkHttpClient to send events
         return OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
@@ -237,7 +239,7 @@ class AgillicSDK private constructor() {
             .build()
     }
 
-    protected fun createEmitter(url: String?, context: Context?): Emitter {
+    private fun createEmitter(url: String?, context: Context?): Emitter {
         // build an emitter, this is used by the tracker to batch and schedule transmission of events
         return EmitterBuilder(url, context)
             .method(HttpMethod.GET)
@@ -260,7 +262,7 @@ class AgillicSDK private constructor() {
             .build()
     }
 
-    protected fun createSnowPlowTracker(
+    private fun createSnowPlowTracker(
         emitter: Emitter?,
         subject: Subject?,
         namespace: String?,
