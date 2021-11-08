@@ -2,6 +2,7 @@ package com.agillic.app.sdk
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.os.Build
 import android.util.DisplayMetrics
@@ -36,6 +37,7 @@ class AgillicSDK private constructor() {
     private var collectorEndpoint = "snowplowtrack-eu1.agillic.net"
     private val service: ExecutorService? = null
     private var auth: BasicAuth? = null
+    private var solutionId: String? = null
 
     companion object {
         private const val apiUrlFormat = "https://api%s-eu1.agillic.net"
@@ -74,12 +76,9 @@ class AgillicSDK private constructor() {
         }
     }
 
-    fun init(key: String, secret: String) {
+    fun configure(key: String, secret: String, solutionId: String) {
+        this.solutionId = solutionId
         auth = getAuth(key, secret)
-    }
-
-    fun init(auth: BasicAuth?) {
-        this.auth = auth
     }
 
     private fun shutdown() {
@@ -87,31 +86,36 @@ class AgillicSDK private constructor() {
     }
 
     fun register(
-        clientAppId: String,
-        clientAppVersion: String?,
-        solutionId: String,
-        userId: String,
-        pnToken: String?,
-        context: Context,
-        displayMetrics: DisplayMetrics?
+        recipientId: String,
+        activity: Activity,
+        pushNotificationToken: String? = null
     ): AgillicTracker {
         //service = Executors.newSingleThreadExecutor();
         // service.shutdown();
         // the application id to attach to events
         // the namespace to attach to events
         // Register at and return a Tracker
-        val emitter: Emitter = createEmitter(collectorEndpoint, context)
+        val emitter: Emitter = createEmitter(collectorEndpoint, activity)
         val subject: Subject = SubjectBuilder().build()
-        subject.setUserId(userId)
+        subject.setUserId(recipientId)
         val tracker = createSnowPlowTracker(
             emitter,
             subject,
             "agillic",
             solutionId,
-            context
+            activity
         )
-        val deviceInfo = Util.getMobileContext(context)
-        RegisterTask(tracker, clientAppId, clientAppVersion, userId, auth, pnToken, deviceInfo, displayMetrics).execute(url)
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val deviceInfo = Util.getMobileContext(activity)
+        val clientAppVersion: String = try {
+            activity.packageManager
+                .getPackageInfo(activity.packageName, 0).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            "NA"
+        }
+        RegisterTask(tracker, activity.packageName, clientAppVersion, recipientId, auth, pushNotificationToken, deviceInfo, displayMetrics).execute(url)
         return AgillicTrackerImpl(tracker)
     }
 
@@ -162,7 +166,7 @@ class AgillicSDK private constructor() {
                                 val deviceInfoData = deviceInfo.map["data"] as Map<String, String>
                                 val deviceModel = deviceInfoData["deviceModel"]
                                 val json = String.format(
-                                            "{\n" +
+                                    "{\n" +
                                             "  \"appInstallationId\" : \"%s\",\n" +
                                             "  \"clientAppId\": %s ,\n" +
                                             "  \"clientAppVersion\": %s,\n" +
@@ -194,9 +198,9 @@ class AgillicSDK private constructor() {
                             try {
                                 val response = client.newCall(request).execute()
                                 Log.i("register", "register: " + response.code() + " ")
-                                    if (response.isSuccessful) return "OK"
+                                if (response.isSuccessful) return "OK"
                                 if (response.code() >= 300) {
-                                     val msg = "Client error: " + response.code() + " " + response.body().toString()
+                                    val msg = "Client error: " + response.code() + " " + response.body().toString()
                                     Log.e("register", "doInBackground: " + msg)
                                     return msg
                                 }
