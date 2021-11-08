@@ -55,7 +55,7 @@ in the [Agillic Solution Setup Guide](docs/AgillicSolutionSetup.md)
 
 Start by importing the Agillic Module into your app component
 ```kotlin
-import com.agillic.app.sdk.Agillic
+import Agillic
 ```
 
 Initialize and configure the Agillic SDK upon launch

@@ -1,5 +1,3 @@
-package com.agillic.app.sdk
-
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -75,7 +73,7 @@ object Agillic {
     }
 
     fun configure(apiKey: String, apiSecret: String, solutionId: String) {
-        this.solutionId = solutionId
+        Agillic.solutionId = solutionId
         auth = getAuth(apiKey, apiSecret)
     }
 
@@ -92,6 +90,10 @@ object Agillic {
         activity: Activity,
         pushNotificationToken: String? = null
     ) {
+        if (auth || solutionId == null) {
+            throw java.lang.RuntimeException("Agillic.configure() must be called before Agillic.Register()")
+            return
+        }
         //service = Executors.newSingleThreadExecutor();
         // service.shutdown();
         // the application id to attach to events

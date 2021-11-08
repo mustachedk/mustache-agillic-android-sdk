@@ -21,6 +21,5 @@ class PageView : CommonEvent() {
             .pageUrl(url)
             .referrer(referer)
             .build()
-
     }
  }
