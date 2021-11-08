@@ -33,7 +33,7 @@ import java.util.logging.Logger
 object Agillic {
     private var agillicTracker: AgillicTrackerImpl? = null
     private var url: String
-    private var requestSecurity = RequestSecurity.HTTPS
+    private val requestSecurity = RequestSecurity.HTTPS
     private var collectorEndpoint = "snowplowtrack-eu1.agillic.net"
     private val service: ExecutorService? = null
     private var auth: BasicAuth? = null
@@ -55,21 +55,6 @@ object Agillic {
 
     fun setApi(api: String) {
         url = api
-    }
-
-    fun setCollector(endpoint: String) {
-        requestSecurity =  RequestSecurity.HTTPS
-        collectorEndpoint = endpoint
-        val protocol = "http://"
-        val httpsString = "https://"
-
-        if (endpoint.startsWith(protocol)) {
-            collectorEndpoint = endpoint.substring(7)
-            requestSecurity = RequestSecurity.HTTP
-        } else if (endpoint.startsWith(httpsString)) {
-            collectorEndpoint = endpoint.substring(httpsString.length)
-            requestSecurity = RequestSecurity.HTTPS
-        }
     }
 
     fun configure(apiKey: String, apiSecret: String, solutionId: String) {
