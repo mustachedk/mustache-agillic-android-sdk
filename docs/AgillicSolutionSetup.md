@@ -8,9 +8,23 @@ the AgillicMobileSDK into your Android application.
 
 ---
 
-Login to your Agillic Solution and select **Settings** in the top right corner.
+To get started, login to your Agillic Solution and select **Settings** in the top right corner.
 
 <img src="resources/setup1.png">
+
+## SDK Configuration
+
+In order to configure the SDK in your Android application you will need to reference your Agillic solutionId, apiKey and apiSecret.
+
+Click "Push and SDK" in the left sidebar to view your staging and production solutionIds.
+
+<img src="resources/setup10.png">
+
+Click "API" view or create an apiKey and apiSecret.
+
+<img src="resources/setup11.png">
+
+## Push Notifications
 
 Next, select **Push and SDK** in the left pane Menu, under **Integrations** and check the "enable push" checkbox
 
@@ -24,7 +38,7 @@ Next, select **Push and SDK** in the left pane Menu, under **Integrations** and 
 
 <img src="resources/setup4.png">
 
-**Enter Service account.** This should correspond to the service account key of a Firebase service account authorized to manage Firebase features such as the Firebase Cloud Messaging API.
+**Enter Service account and remember to click save.** This should correspond to the service account key of a Firebase service account authorized to manage Firebase features such as the Firebase Cloud Messaging API.
 Access or create a service account by navigating to [Google Cloud Platform](https://console.cloud.google.com).
 From there select your Firebase project. Then click IAM & Admin in the sidebar and then Service Accounts.
 
