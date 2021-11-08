@@ -67,6 +67,10 @@ object Agillic {
     }
 
     fun track(event:AgillicAppViewEvent) {
+        if (agillicTracker == null) {
+            throw java.lang.RuntimeException("Agillic.register() must be called before Agillic.track()")
+            return
+        }
         agillicTracker?.track(event)
     }
 
