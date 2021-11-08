@@ -17,9 +17,7 @@ And in our [Developer portal](https://developers.agillic.com).
 ## Installation
 
 See the subsections below for details about the different installation methods.
-* [Gradle Dependency](https://developer.android.com/studio/build/dependencies)
-
-[![](https://jitpack.io/v/mustachedk/mustache-agillic-android-sdk.svg)](https://jitpack.io/#mustachedk/mustache-agillic-android-sdk)
+* [As a dependency using Gradle](https://developer.android.com/studio/build/dependencies)
 
 ###### Add this to your root build.gradle
 ```bash
@@ -37,7 +35,7 @@ dependencies {
 }
 ```
 
-* [Manual import](https://developer.android.com/studio/projects/android-library#psd-add-dependencies)
+* [Importing SDK manually using Android Studio](https://developer.android.com/studio/projects/android-library#psd-add-dependencies)
 
 ## Initializing the Agillic SDK
 
