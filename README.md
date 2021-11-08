@@ -20,7 +20,6 @@ See the subsections below for details about the different installation methods.
 * [Gradle Dependency](https://developer.android.com/studio/build/dependencies)
 
 [![](https://jitpack.io/v/mustachedk/mustache-agillic-android-sdk.svg)](https://jitpack.io/#mustachedk/mustache-agillic-android-sdk)
-[![](https://jitpack.io/v/mustachedk/core-lib-an.svg)](https://jitpack.io/#mustachedk/core-lib-an)
 
 ###### Add this to your root build.gradle
 ```bash
@@ -52,11 +51,19 @@ You can configure your Agillic instance in code:
 See how to setup your Agillic Solution and obtain these values
 in the [Agillic Solution Setup Guide](docs/AgillicSolutionSetup.md)
 
-Initialize and configure
+### Initialize in app
 
-//TODO: INSERT AFTER REFACTOR
+Start by importing the Agillic Module into your app component
+```kotlin
+import com.agillic.app.sdk.Agillic
+```
 
-AgillicMobileSDK instance is now ready for usage.
+Initialize and configure the Agillic SDK upon launch
+```kotlin
+Agillic.configure(apiKey = "AGILLIC API KEY", apiSecret = "AGILLIC API SECRET", solutionId = "AGILLIC SOLUTION ID")
+```
+
+The Agillic instance is now ready for usage.
 
 ## Usage
 
@@ -64,20 +71,30 @@ AgillicMobileSDK instance is now ready for usage.
 
 * ``RECIPIENT ID`` - Has to match RECIPIENT.EMAIL in the Agillic Recipient Table
 
-//TODO: INSERT AFTER REFACTOR
+```kotlin
+Agillic.register(recipientId = "RECIPIENT ID", activity = requireActivity())
+```
 
 ### Register Push Token
 
-//TODO: INSERT AFTER REFACTOR
+Register for Remote Push Notifications in your App, like you used to and include your deviceToken when registering the SDK
+_NOTE: This requires you to have already obtained the Recipient ID and stored it across app sessions - this is currently only supported for known recipients._
+
+```kotlin
+Agillic.register(recipientId = "RECIPIENT ID", pushNotificationToken = "DEVICE TOKEN", activity = requireActivity())
+```
 
 ### App View tracking
 
 Track recipient behavior with App View Tracking
 
-//TODO: INSERT AFTER REFACTOR
+```kotlin
+val appViewEvent = AgillicAppViewEvent(screenName = "app_protocol://fragment/1")
+Agillic.track(appViewEvent)
+```
 
 The ``screenName`` is the value that can be matched in the Condition Editor.
-The suggested name convention to use some hierarchical ``app/sublevel-1/sublevel-2/...``
+The suggested name convention to u
 
 ## Questions and Issues
 
