@@ -1,3 +1,6 @@
+package com.agillic.app.sdk
+
+import AgillicAppViewEvent
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -5,7 +8,6 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
-import com.agillic.app.sdk.AgillicTrackerImpl
 import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
 import com.snowplowanalytics.snowplow.tracker.Emitter
 import com.snowplowanalytics.snowplow.tracker.Emitter.EmitterBuilder
@@ -66,9 +68,9 @@ object Agillic {
         service?.shutdownNow()
     }
 
-    fun track(event:AgillicAppViewEvent) {
+    fun track(event: AgillicAppViewEvent) {
 /*        if (agillicTracker == null) {
-            throw java.lang.RuntimeException("Agillic.register() must be called before Agillic.track()")
+            throw java.lang.RuntimeException("com.agillic.app.sdk.Agillic.register() must be called before com.agillic.app.sdk.Agillic.track()")
             return
         }
         agillicTracker?.track(event)*/
@@ -80,7 +82,7 @@ object Agillic {
         pushNotificationToken: String? = null
     ) {
         if (auth == null || solutionId == null) {
-            throw java.lang.RuntimeException("Agillic.configure() must be called before Agillic.Register()")
+            throw java.lang.RuntimeException("com.agillic.app.sdk.Agillic.configure() must be called before com.agillic.app.sdk.Agillic.Register()")
             return
         }
         //service = Executors.newSingleThreadExecutor();
@@ -108,7 +110,9 @@ object Agillic {
             e.printStackTrace()
             "NA"
         }
-        RegisterTask(tracker, activity.packageName, clientAppVersion, recipientId, auth, pushNotificationToken, deviceInfo, displayMetrics).execute(url)
+        RegisterTask(tracker, activity.packageName, clientAppVersion, recipientId, auth, pushNotificationToken, deviceInfo, displayMetrics).execute(
+            url
+        )
         agillicTracker = AgillicTrackerImpl(tracker)
     }
 
