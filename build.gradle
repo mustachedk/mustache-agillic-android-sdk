@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 // group='com.agillic.app.sdk'
 
 buildscript {
@@ -12,6 +13,20 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
+
+    repositories {
+        google()
+        mavenCentral()
     }
 }
 
@@ -60,5 +75,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     // Snowplow Android Tracker
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-    implementation 'com.snowplowanalytics:snowplow-android-tracker:1.1+@aar'
+    implementation 'com.snowplowanalytics:snowplow-android-tracker:1.+@aar'
 }

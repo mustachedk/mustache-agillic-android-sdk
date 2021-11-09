@@ -10,11 +10,8 @@ import android.util.DisplayMetrics
 import android.util.Log
 import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
 import com.snowplowanalytics.snowplow.tracker.Emitter
-import com.snowplowanalytics.snowplow.tracker.Emitter.EmitterBuilder
 import com.snowplowanalytics.snowplow.tracker.Subject
-import com.snowplowanalytics.snowplow.tracker.Subject.SubjectBuilder
 import com.snowplowanalytics.snowplow.tracker.Tracker
-import com.snowplowanalytics.snowplow.tracker.Tracker.TrackerBuilder
 import com.snowplowanalytics.snowplow.tracker.emitter.BufferOption
 import com.snowplowanalytics.snowplow.tracker.emitter.HttpMethod
 import com.snowplowanalytics.snowplow.tracker.emitter.RequestCallback
@@ -22,6 +19,7 @@ import com.snowplowanalytics.snowplow.tracker.emitter.RequestSecurity
 import com.snowplowanalytics.snowplow.tracker.payload.SelfDescribingJson
 import com.snowplowanalytics.snowplow.tracker.utils.Util
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -91,7 +89,7 @@ object Agillic {
         // the namespace to attach to events
         // Register at and return a Tracker
         val emitter: Emitter = createEmitter(collectorEndpoint, activity)
-        val subject: Subject = SubjectBuilder().build()
+        val subject: Subject = Subject.SubjectBuilder().build()
         subject.setUserId(recipientId)
         val tracker = createSnowPlowTracker(
             emitter,
@@ -110,7 +108,16 @@ object Agillic {
             e.printStackTrace()
             "NA"
         }
-        RegisterTask(tracker, activity.packageName, clientAppVersion, recipientId, auth, pushNotificationToken, deviceInfo, displayMetrics).execute(
+        RegisterTask(
+            tracker,
+            activity.packageName,
+            clientAppVersion,
+            recipientId,
+            auth,
+            pushNotificationToken,
+            deviceInfo,
+            displayMetrics
+        ).execute(
             url
         )
         agillicTracker = AgillicTrackerImpl(tracker)
@@ -121,11 +128,15 @@ object Agillic {
     }
 
     class BasicAuth(key: String, secret: String) {
-        private var basicAuth: String = "Basic " + if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Base64.getEncoder().encodeToString("$key:$secret".toByteArray())
-        } else {
-            android.util.Base64.encodeToString("$key:$secret".toByteArray(), android.util.Base64.NO_WRAP);
-        }
+        private var basicAuth: String =
+            "Basic " + if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getEncoder().encodeToString("$key:$secret".toByteArray())
+            } else {
+                android.util.Base64.encodeToString(
+                    "$key:$secret".toByteArray(),
+                    android.util.Base64.NO_WRAP
+                );
+            }
 
         fun getAuth(): String {
             return basicAuth
@@ -141,11 +152,10 @@ object Agillic {
         var appToken: String?,
         var deviceInfo: SelfDescribingJson,
         var displayMetrics: DisplayMetrics?
-    ) : AsyncTask<String, Int, String>()
-    {
+    ) : AsyncTask<String, Int, String>() {
         override fun doInBackground(vararg urls: String): String? {
             // Can remove loop: Session sesion = tracker.session.loadFromFileFuture.get()
-            while (! tracker.session.waitForSessionFileLoad()) {
+            while (!tracker.session.waitForSessionFileLoad()) {
                 Logger.getLogger(this.javaClass.name).warning("Session still not loaded")
             }
             try {
@@ -155,7 +165,7 @@ object Agillic {
                     val request = Request.Builder().url(requestUrl)
                         .addHeader("Authorization", auth!!.getAuth()).put(object : RequestBody() {
                             override fun contentType(): MediaType {
-                                return MediaType.get("application/json")
+                                return "application/json".toMediaType()
                             }
 
                             @Throws(IOException::class)
@@ -184,7 +194,7 @@ object Agillic {
                                     displayMetrics?.widthPixels,
                                     displayMetrics?.heightPixels
                                 )
-                                Log.d("register",requestUrl + ": " + json)
+                                Log.d("register", requestUrl + ": " + json)
                                 bufferedSink.write(json.toByteArray())
                             }
                         }).build()
@@ -194,10 +204,12 @@ object Agillic {
                         try {
                             try {
                                 val response = client.newCall(request).execute()
-                                Log.i("register", "register: " + response.code() + " ")
+                                Log.i("register", "register: " + response.code + " ")
                                 if (response.isSuccessful) return "OK"
-                                if (response.code() >= 300) {
-                                    val msg = "Client error: " + response.code() + " " + response.body().toString()
+                                if (response.code >= 300) {
+                                    val msg =
+                                        "Client error: " + response.code + " " + response.body
+                                            .toString()
                                     Log.e("register", "doInBackground: " + msg)
                                     return msg
                                 }
@@ -236,7 +248,7 @@ object Agillic {
 
     private fun createEmitter(url: String?, context: Context?): Emitter {
         // build an emitter, this is used by the tracker to batch and schedule transmission of events
-        return EmitterBuilder(url, context)
+        return Emitter.EmitterBuilder(url, context)
             .method(HttpMethod.GET)
             .security(requestSecurity)
             .callback(object : RequestCallback {
@@ -250,7 +262,10 @@ object Agillic {
                     successCount: Int,
                     failedCount: Int
                 ) {
-                    Log.e("AgillicSDK:emitter","Successfully sent " + successCount + " events; failed to send " + failedCount + " events")
+                    Log.e(
+                        "AgillicSDK:emitter",
+                        "Successfully sent " + successCount + " events; failed to send " + failedCount + " events"
+                    )
                 }
             })
             .option(BufferOption.Single)
@@ -264,7 +279,7 @@ object Agillic {
         appId: String?,
         context: Context?
     ): Tracker { // now we have the emitter, we need a tracker to turn our events into something a Snowplow collector can understand
-        return TrackerBuilder(emitter, namespace, appId, context)
+        return Tracker.TrackerBuilder(emitter, namespace, appId, context)
             .subject(subject)
             .base64(true) //
             .sessionContext(true)
