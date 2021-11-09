@@ -16,11 +16,11 @@ To get started, login to your Agillic Solution and select **Settings** in the to
 
 In order to configure the SDK in your Android application you will need to reference your Agillic solutionId, apiKey and apiSecret.
 
-Click "Push and SDK" in the left sidebar to view your staging and production solutionIds.
+Click "Push and SDK" in the left sidebar to view your staging and production solution IDs.
 
 <img src="resources/setup10.png">
 
-Click "API" view or create an apiKey and apiSecret.
+Click "API" in the left sidebar to view or create a developer key and secret.
 
 <img src="resources/setup11.png">
 
