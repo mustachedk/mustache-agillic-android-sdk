@@ -1,3 +1,4 @@
+import com.agillic.app.sdk.events.CommonEvent
 import com.snowplowanalytics.snowplow.tracker.events.AbstractEvent
 import java.util.*
 

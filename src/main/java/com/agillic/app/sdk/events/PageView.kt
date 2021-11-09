@@ -1,3 +1,4 @@
+import com.agillic.app.sdk.events.CommonEvent
 import com.snowplowanalytics.snowplow.tracker.events.AbstractEvent
 
 class PageView : CommonEvent() {
@@ -20,4 +21,4 @@ class PageView : CommonEvent() {
             .referrer(referer)
             .build()
     }
- }
+}
