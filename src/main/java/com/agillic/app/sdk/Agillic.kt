@@ -79,7 +79,7 @@ object Agillic {
         activity: Activity,
         pushNotificationToken: String? = null
     ) {
-        if (auth || solutionId == null) {
+        if (auth == null || solutionId == null) {
             throw java.lang.RuntimeException("Agillic.configure() must be called before Agillic.Register()")
             return
         }
