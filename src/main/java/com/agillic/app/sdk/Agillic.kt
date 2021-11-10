@@ -45,18 +45,6 @@ object Agillic {
         url = String.format(apiUrlFormat, "")
     }
 
-    fun setDevApi() {
-        url = String.format(apiUrlFormat, "dev")
-    }
-
-    fun setTestApi() {
-        url = String.format(apiUrlFormat, "test")
-    }
-
-    fun setApi(api: String) {
-        url = api
-    }
-
     fun configure(apiKey: String, apiSecret: String, solutionId: String) {
         Agillic.solutionId = solutionId
         auth = getAuth(apiKey, apiSecret)
@@ -67,11 +55,11 @@ object Agillic {
     }
 
     fun track(event: AgillicAppViewEvent) {
-/*        if (agillicTracker == null) {
+        if (agillicTracker == null) {
             throw java.lang.RuntimeException("com.agillic.app.sdk.Agillic.register() must be called before com.agillic.app.sdk.Agillic.track()")
             return
         }
-        agillicTracker?.track(event)*/
+        agillicTracker?.track(event)
     }
 
     fun register(
