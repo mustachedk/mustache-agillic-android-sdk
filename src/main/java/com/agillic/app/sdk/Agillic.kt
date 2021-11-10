@@ -50,6 +50,21 @@ object Agillic {
         auth = getAuth(apiKey, apiSecret)
     }
 
+    fun pauseTracking() {
+        if (agillicTracker == null) {
+            throw java.lang.RuntimeException("Agillic.register() must be called before Agillic.pauseTracking()")
+        } else {
+            agillicTracker?.pauseTracking()
+        }
+    }
+    fun resumeTracking() {
+        if (agillicTracker == null) {
+            throw java.lang.RuntimeException("Agillic.register() must be called before Agillic.resumeTracking()")
+        } else {
+            agillicTracker?.resumeTracking()
+        }
+    }
+
     private fun shutdown() {
         service?.shutdownNow()
     }
