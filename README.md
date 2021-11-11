@@ -13,6 +13,7 @@ And in our [Developer portal](https://developers.agillic.com).
 ## Requirements
 
 - Requires minimum Android 5.0+ (API level 21+)
+- INTERNET permission (<uses-permission android:name="android.permission.INTERNET" />)
 
 ## Installation
 
@@ -62,6 +63,11 @@ Initialize and configure the Agillic SDK upon launch
 ```kotlin
 Agillic.configure(apiKey = "AGILLIC API KEY", apiSecret = "AGILLIC API SECRET", solutionId = "AGILLIC SOLUTION ID")
 ```
+Add internet permission to application manifest
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.app">
+    <uses-permission android:name="android.permission.INTERNET" />
+    ...
 
 The Agillic instance is now ready for usage.
 
