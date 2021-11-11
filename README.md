@@ -47,7 +47,9 @@ You can configure your Agillic instance in code:
 * ``AGILLIC SOLUTION ID``
 
 See how to setup your Agillic Solution and obtain these values
-in the [Agillic Solution Setup Guide](docs/AgillicSolutionSetup.md)
+in the [Agillic Solution Setup Guide](docs/AgillicSolutionSetup.md).
+We recommended these values are passed down to the client on start of the application from an App Server instead of being hardcoded into the application.
+
 
 ### Initialize in app
 
@@ -87,12 +89,11 @@ Agillic.register(recipientId = "RECIPIENT ID", pushNotificationToken = "DEVICE T
 Track recipient behavior with App View Tracking
 
 ```kotlin
-val appViewEvent = AgillicAppViewEvent(screenName = "app_protocol://fragment/1")
+val appViewEvent = com.agillic.app.sdk.events.AgillicAppViewEvent(screenName = "app_protocol://fragment/1")
 Agillic.track(appViewEvent)
 ```
 
-The ``screenName`` is the value that can be matched in the Condition Editor.
-The suggested name convention to u
+The screenName is the value that can be matched in the Condition Editor. We suggest using a hierarchical naming convention e.g. app/sublevel-1/sublevel-2/..., so that different event types can easily be filtered in the Agillic Condition Editor.
 
 ## Questions and Issues
 
