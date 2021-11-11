@@ -76,4 +76,5 @@ dependencies {
     // Snowplow Android Tracker
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.snowplowanalytics:snowplow-android-tracker:1.+@aar'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }
