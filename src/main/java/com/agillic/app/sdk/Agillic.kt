@@ -1,6 +1,5 @@
 package com.agillic.app.sdk
 
-import AgillicAppViewEvent
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,6 +7,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
+import com.agillic.app.sdk.events.AgillicAppViewEvent
 import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
 import com.snowplowanalytics.snowplow.tracker.Emitter
 import com.snowplowanalytics.snowplow.tracker.Subject
