@@ -1,4 +1,5 @@
-import com.agillic.app.sdk.events.CommonEvent
+package com.agillic.app.sdk.events
+
 import com.snowplowanalytics.snowplow.tracker.events.AbstractEvent
 
 class PageView : CommonEvent() {
