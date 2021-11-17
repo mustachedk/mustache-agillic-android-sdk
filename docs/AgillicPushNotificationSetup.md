@@ -18,7 +18,7 @@ Click the purple + icon to create an App Push template.
 
 <img src="resources/pushsetup2.png">
 
-To create your push notification you must add a message and a recipient. [Click here to learn how to create a target group and define your recipients.] (https://support.agillic.com/hc/en-gb/articles/360006745932-How-to-Check-your-Recipients-One-to-Many-data)
+To create your push notification you must add a message and a recipient. [Click here to learn how to create a target group and define your recipients](https://support.agillic.com/hc/en-gb/articles/360006745932-How-to-Check-your-Recipients-One-to-Many-data).
 
 When creating your message, you can add dynamic content fields referencing your recipient data and Promotion Blocks to show different content depending on who receives the App Push.
 
@@ -38,6 +38,6 @@ Finally click **Send test**
 
 <img src="resources/pushsetup6.png">
 
-This should trigger a push notification in your Android application. View the SDK README to learn how to access and read the push notification message and payload, which will include a deeplink if included in the App Push test.
+This should trigger a push notification in your Android application. [View the SDK README to learn how to access and read the push notification message and payload, which will include a deeplink if included in the App Push test](../README.md#Introduction).
 
 
