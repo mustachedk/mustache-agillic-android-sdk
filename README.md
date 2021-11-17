@@ -4,32 +4,38 @@ The Agillic SDK enables you to utilize the Agillic platform from within your And
 The SDK currently includes the following functionality:
 
  * Register devices used by a recipient in your mobile application.
- * Register a recipient token required to send a Push Notification to a device using Apple PN on iOS or Firebase Cloud Messaging for Android. When registered, this token will allow sending push notifications to recipients via the Agillic Dashboard.
+ * Register a recipient push notification token which enables your Agillic Solution to send push notifications to the recipient device.
  * Track recipient events. Tracking can be paused and resumed when requested by the user. Tracked events can be used to define [Target Groups](https://support.agillic.com/hc/en-gb/articles/360007001991-All-You-Need-to-Know-About-Target-Groups) in the Agillic Dashboard which can be used to direct targeted marketing and other communication.
 
-Read more about the Agillic Platform on the [official Agillic website](https://agillic.com).
-And in our [Developer portal](https://developers.agillic.com).
+Read more about the Agillic Platform on the [official Agillic website](https://agillic.com) and at our [Developer portal](https://developers.agillic.com).
 
 ## Requirements
 
 - Requires minimum Android 5.0+ (API level 21+)
-- INTERNET permission (<uses-permission android:name="android.permission.INTERNET" />)
+- INTERNET permission
 
 ## Installation
 
-See the subsections below for details about the different installation methods.
-* [As a dependency using Gradle](https://developer.android.com/studio/build/dependencies)
+See the subsections below for details about different installation methods.
+* [Add SDK as a dependency using Gradle](https://developer.android.com/studio/build/dependencies)
 
-###### Add this to your root build.gradle
+
+###### Add the maven jitpack repository to your root settings.gradle file
 ```bash
-allprojects {
-  repositories {
-    maven { url 'https://jitpack.io' }
-  }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+
+        //Add this line
+        maven { url "https://jitpack.io" }
+    }
 }
 ```
 
-###### Add this to your root build.gradle
+###### Add this to your build.gradle
 ```bash
 dependencies {
   implementation 'com.github.mustachedk:mustache-agillic-android-sdk:1.0'
@@ -63,32 +69,22 @@ Initialize and configure the Agillic SDK upon launch
 ```kotlin
 Agillic.configure(apiKey = "AGILLIC API KEY", apiSecret = "AGILLIC API SECRET", solutionId = "AGILLIC SOLUTION ID")
 ```
-Add internet permission to application manifest
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app">
-    <uses-permission android:name="android.permission.INTERNET" />
-    ...
 
-The Agillic instance is now ready for usage.
+The Agillic instance is now ready to use.
 
 ## Usage
 
 ### Register App Installation
 
+You must register your application with the Agillic SDK on app startup. An optional push notification token can be passed to this method if available.
+
 * ``RECIPIENT ID`` - Has to match RECIPIENT.EMAIL in the Agillic Recipient Table
-
-```kotlin
-Agillic.register(recipientId = "RECIPIENT ID", activity = requireActivity())
-```
-
-### Register Push Token
-
-Register for Remote Push Notifications in your App, like you used to and include your deviceToken when registering the SDK
-_NOTE: This requires you to have already obtained the Recipient ID and stored it across app sessions - this is currently only supported for known recipients._
 
 ```kotlin
 Agillic.register(recipientId = "RECIPIENT ID", pushNotificationToken = "DEVICE TOKEN", activity = requireActivity())
 ```
+
+Each time an updated push notification token becomes available from Firebase, register() should be called again while passing the updated token.
 
 ### App View tracking
 
@@ -104,8 +100,8 @@ The screenName is the value that can be matched in the Condition Editor. We sugg
 ## Reading Push Notifications sent from your Agillic Solution
 
 Prerequisites
-* [Setup the Firebase Cloud Messaging SDK] (https://firebase.google.com/docs/cloud-messaging/android/client)
-* Read the ## [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#Introduction) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
+* [Setup the Firebase Cloud Messaging SDK](https://firebase.google.com/docs/cloud-messaging/android/client)
+* Read the [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#Introduction) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
 
 **[Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)**
 
@@ -121,7 +117,7 @@ override fun onMessageReceived(remoteMessage: RemoteMessage) {
     }
 ```
 
-**[Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)**
+** [Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)**
 
 When a user clicks a push notification while the application is in the background, the data payload is delivered in the extras of the intent of your launcher Activity.
 
@@ -135,5 +131,4 @@ When a user clicks a push notification while the application is in the backgroun
 
 ## Questions and Issues
 
-Please provide any feedback via a [GitHub
-Issue](https://github.com/mustachedk/mustache-agillic-android-sdk/issues/new).
+Please provide any feedback via a [GitHub Issue](https://github.com/mustachedk/mustache-agillic-android-sdk/issues/new).
