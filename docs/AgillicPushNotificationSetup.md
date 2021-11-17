@@ -14,11 +14,11 @@ To get started, login to your Agillic Solution and select **Channels** and **App
 
 <img src="resources/pushsetup1.png">
 
-Click the purple + icon to create an App Push template
+Click the purple + icon to create an App Push template.
 
 <img src="resources/pushsetup2.png">
 
-To create your push notification you must add a message and a recipient. [Click here to learn how to create a target group and define your recipients.] (#https://support.agillic.com/hc/en-gb/articles/360006745932-How-to-Check-your-Recipients-One-to-Many-data)
+To create your push notification you must add a message and a recipient. [Click here to learn how to create a target group and define your recipients.] (https://support.agillic.com/hc/en-gb/articles/360006745932-How-to-Check-your-Recipients-One-to-Many-data)
 
 When creating your message, you can add dynamic content fields referencing your recipient data and Promotion Blocks to show different content depending on who receives the App Push.
 
