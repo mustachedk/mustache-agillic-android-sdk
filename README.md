@@ -103,7 +103,7 @@ Prerequisites
 * [Setup the Firebase Cloud Messaging SDK](https://firebase.google.com/docs/cloud-messaging/android/client)
 * Read the [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#Introduction) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
 
-**[Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)**
+[Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)
 
 When a user receives a push notification while the application is in the foreground, the notification data (e.g. body and title) and payload is delivered in the onMessageReceived callback of your FirebaseMessagingService implementation.
 
@@ -117,7 +117,7 @@ override fun onMessageReceived(remoteMessage: RemoteMessage) {
     }
 ```
 
-** [Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)**
+Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)
 
 When a user clicks a push notification while the application is in the background, the data payload is delivered in the extras of the intent of your launcher Activity.
 
