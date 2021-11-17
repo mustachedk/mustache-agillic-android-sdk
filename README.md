@@ -101,7 +101,7 @@ The screenName is the value that can be matched in the Condition Editor. We sugg
 
 Prerequisites
 * [Setup the Firebase Cloud Messaging SDK](https://firebase.google.com/docs/cloud-messaging/android/client)
-* Read the [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#Reading Push Notifications sent from your Agillic Solution) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
+* Read the [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#ReadingPushNotificationssentfromyourAgillicSolution) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
 
 [Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)
 
