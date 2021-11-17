@@ -101,6 +101,38 @@ Agillic.track(appViewEvent)
 
 The screenName is the value that can be matched in the Condition Editor. We suggest using a hierarchical naming convention e.g. app/sublevel-1/sublevel-2/..., so that different event types can easily be filtered in the Agillic Condition Editor.
 
+## Reading Push Notifications sent from your Agillic Solution
+
+Prerequisites
+* [Setup the Firebase Cloud Messaging SDK] (https://firebase.google.com/docs/cloud-messaging/android/client)
+* Read the ## [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#Introduction) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
+
+**[Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)**
+
+When a user receives a push notification while the application is in the foreground, the notification data (e.g. body and title) and payload is delivered in the onMessageReceived callback of your FirebaseMessagingService implementation.
+
+```kotlin
+override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        val data = remoteMessage.data
+        val headline = data["headline"]
+        val message = data["message"]
+        val deeplink = data["deeplink"]
+    }
+```
+
+**[Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)**
+
+When a user clicks a push notification while the application is in the background, the data payload is delivered in the extras of the intent of your launcher Activity.
+
+```kotlin
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val extras = intent?.extras
+        val deeplink = extras?.get("deeplink")
+    }
+```
+
 ## Questions and Issues
 
 Please provide any feedback via a [GitHub
