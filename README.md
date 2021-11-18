@@ -90,11 +90,18 @@ Each time an updated push notification token becomes available from Firebase, re
 Track recipient behavior with App View Tracking
 
 ```kotlin
-val appViewEvent = com.agillic.app.sdk.events.AgillicAppView(screenName = "app_protocol://fragment/1")
+val appViewEvent = com.agillic.app.sdk.events.AgillicAppView(screenName = "app://sublevel-1/sublevel-2")
 Agillic.track(appViewEvent)
 ```
 
-The screenName is the value that can be matched in the Condition Editor. We suggest using a hierarchical naming convention e.g. app/sublevel-1/sublevel-2/..., so that different event types can easily be filtered in the Agillic Condition Editor.
+The ``screenName`` is the value that can be matched in the Condition Editor.
+We suggest using a hierarchical naming convention e.g. ``app://sublevel-1/sublevel-2/...``
+
+*Examples of usage:*
+``app://landingpage``
+``app://landingpage/sign-up/step-2``
+``app://dashboard/product-offers/21``
+``app://menu/profile/edit``
 
 ## Reading Push Notifications sent from your Agillic Solution
 
