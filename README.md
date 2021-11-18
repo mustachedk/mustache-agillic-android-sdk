@@ -99,17 +99,16 @@ The screenName is the value that can be matched in the Condition Editor. We sugg
 
 ## Reading Push Notifications sent from your Agillic Solution
 
-Prerequisites
+**Prerequisites**
 * [Setup the Firebase Cloud Messaging SDK](https://firebase.google.com/docs/cloud-messaging/android/client)
 * Read the [AgillicPushNotificationSetup](docs/AgillicPushNotificationSetup.md#ReadingPushNotificationssentfromyourAgillicSolution) document to learn how to send push notifications to your Android application directly from your Agillic Solution.
 
 [Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)
 
-There are two types of messages in FCM (Firebase Cloud Messaging):
+There are different types of messages in FCM (Firebase Cloud Messaging):
 
 **Display Messages** does not contain a data payload and triggers a Firebase onMessageReceived() callback only when your app is in the foreground
-**Data Messages**: contains a data payload and triggers the onMessageReceived() callback even if your app is in foreground/background/killed
-
+**Data Messages** contains a data payload and triggers a Firebase onMessageReceived() callback even if your app is in foreground/background/killed
 
 ```kotlin
 override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -123,7 +122,7 @@ override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
 [Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)
 
-When a user clicks a push notification while the application is in the background, and the notification does not contain a data payload, notification data is delivered in the extras of the intent of your launcher Activity.
+When a user clicks a push notification received while the application is in the background, notification data is delivered in the extras of the intent of your launcher Activity.
 
 ```kotlin
     override fun onNewIntent(intent: Intent?) {
