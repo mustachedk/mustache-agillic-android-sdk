@@ -105,7 +105,11 @@ Prerequisites
 
 [Receiving a push notification while the application is in the foreground](https://firebase.google.com/docs/cloud-messaging/android/receive#override-onmessagereceived)
 
-When a user receives a push notification while the application is in the foreground, the notification data (e.g. body and title) and payload is delivered in the onMessageReceived callback of your FirebaseMessagingService implementation.
+There are two types of messages in FCM (Firebase Cloud Messaging):
+
+**Display Messages** does not contain a data payload and triggers a Firebase onMessageReceived() callback only when your app is in the foreground
+**Data Messages**: contains a data payload and triggers the onMessageReceived() callback even if your app is in foreground/background/killed
+
 
 ```kotlin
 override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -119,7 +123,7 @@ override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
 [Receiving a push notification while the application is in the background](https://firebase.google.com/docs/cloud-messaging/android/receive#backgrounded)
 
-When a user clicks a push notification while the application is in the background, the data payload is delivered in the extras of the intent of your launcher Activity.
+When a user clicks a push notification while the application is in the background, and the notification does not contain a data payload, notification data is delivered in the extras of the intent of your launcher Activity.
 
 ```kotlin
     override fun onNewIntent(intent: Intent?) {
