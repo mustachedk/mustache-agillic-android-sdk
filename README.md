@@ -7,7 +7,7 @@ The SDK currently includes the following functionality:
  * Register a recipient push notification token which enables your Agillic Solution to send push notifications to the recipient device.
  * Track recipient events. Tracking can be paused and resumed when requested by the user. Tracked events can be used to define [Target Groups](https://support.agillic.com/hc/en-gb/articles/360007001991-All-You-Need-to-Know-About-Target-Groups) in the Agillic Dashboard which can be used to direct targeted marketing and other communication.
 
-Read more about the Agillic Platform on the [official Agillic website](https://agillic.com) and at our [Developer portal](https://developers.agillic.com).
+Read more about the Agillic Platform on the [official Agillic website](https://agillic.com) and at our [developer portal](https://developers.agillic.com).
 
 ## Requirements
 
@@ -18,7 +18,6 @@ Read more about the Agillic Platform on the [official Agillic website](https://a
 
 See the subsections below for details about different installation methods.
 * [Add SDK as a dependency using Gradle](https://developer.android.com/studio/build/dependencies)
-
 
 ###### Add the maven jitpack repository to your root settings.gradle file
 ```bash
@@ -108,6 +107,7 @@ The screenName is the value that can be matched in the Condition Editor. We sugg
 There are different types of messages in FCM (Firebase Cloud Messaging):
 
 **Display Messages** does not contain a data payload and triggers a Firebase onMessageReceived() callback only when your app is in the foreground
+
 **Data Messages** contains a data payload and triggers a Firebase onMessageReceived() callback even if your app is in foreground/background/killed
 
 ```kotlin
