@@ -202,7 +202,7 @@ object Agillic {
                             }
                         }).build()
                     var retries = 3
-                    var sleep = 1000
+                    val sleep = 5000
                     while (retries-- > 0) {
                         try {
                             try {
@@ -219,7 +219,6 @@ object Agillic {
                             } catch (ignored: IOException) {
                             }
                             Thread.sleep(sleep.toLong())
-                            sleep *= 2
                         } catch (ignored: InterruptedException) {
                             Thread.currentThread().interrupt()
                         }
