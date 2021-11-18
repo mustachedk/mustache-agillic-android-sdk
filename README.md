@@ -90,7 +90,7 @@ Each time an updated push notification token becomes available from Firebase, re
 Track recipient behavior with App View Tracking
 
 ```kotlin
-val appViewEvent = com.agillic.app.sdk.events.AgillicAppViewEvent(screenName = "app_protocol://fragment/1")
+val appViewEvent = com.agillic.app.sdk.events.AgillicAppView(screenName = "app_protocol://fragment/1")
 Agillic.track(appViewEvent)
 ```
 

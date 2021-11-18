@@ -7,8 +7,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
-import com.agillic.app.sdk.events.AgillicAppViewEvent
-import com.agillic.app.sdk.events.Event
+import com.agillic.app.sdk.events.AgillicAppView
 import com.snowplowanalytics.snowplow.tracker.DevicePlatforms
 import com.snowplowanalytics.snowplow.tracker.Emitter
 import com.snowplowanalytics.snowplow.tracker.Subject
@@ -70,7 +69,7 @@ object Agillic {
         service?.shutdownNow()
     }
 
-    fun track(event: AgillicAppViewEvent) {
+    fun track(event: AgillicAppView) {
         if (agillicTracker == null) {
             throw java.lang.RuntimeException("com.agillic.app.sdk.Agillic.register() must be called before com.agillic.app.sdk.Agillic.track()")
             return
