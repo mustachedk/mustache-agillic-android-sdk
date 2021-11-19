@@ -44,7 +44,7 @@ dependencyResolutionManagement {
 ###### Add this to your build.gradle
 ```bash
 dependencies {
-  implementation 'com.github.mustachedk:mustache-agillic-android-sdk:1.0'
+  implementation 'com.github.agillic:agillic-android-sdk:1.0.0'
 }
 ```
 
