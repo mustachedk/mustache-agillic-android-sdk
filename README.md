@@ -69,7 +69,7 @@ in the [Agillic Solution Setup Guide](docs/AgillicSolutionSetup.md).
 
 Start by importing the Agillic Module into your app component
 ```kotlin
-    import Agillic
+import Agillic
 ```
 
 Initialize and configure the Agillic SDK upon launch
@@ -100,7 +100,7 @@ _NOTE: Work in progress_
 
 ###### Register App Installation
 ```kotlin
-    Agillic.register(recipientId = "RECIPIENT ID", activity = requireActivity())
+Agillic.register(recipientId = "RECIPIENT ID", activity = requireActivity())
 ```
 
 Each time an updated push notification token becomes available from Firebase, register() should be called again while passing the updated token.
