@@ -7,12 +7,14 @@ The SDK currently includes the following functionality:
  * Register a recipient push notification token which enables your Agillic Solution to send push notifications to the recipient device.
  * Track recipient events. Tracking can be paused and resumed when requested by the user. Tracked events can be used to define [Target Groups](https://support.agillic.com/hc/en-gb/articles/360007001991-All-You-Need-to-Know-About-Target-Groups) in the Agillic Dashboard which can be used to direct targeted marketing and other communication.
 
-Read more about the Agillic Platform on the [official Agillic website](https://agillic.com) and at our [developer portal](https://developers.agillic.com).
+Other useful information:
+* Read more about the Agillic Platform on the [official Agillic website](https://agillic.com).
+* And in our [Developer portal](https://developers.agillic.com).
+* The Agillic SDK for iOS can be found here: [Agillic iOS SDK](https://github.com/agillic/agillic-ios-sdk/)
 
 ## Requirements
 
 - Requires minimum Android 5.0+ (API level 21+)
-- INTERNET permission
 
 ## Installation
 
